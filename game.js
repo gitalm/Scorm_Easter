@@ -96,39 +96,40 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-// ---EVENTS BINDING---
-document.addEventListener("DOMContentLoaded", () => {
-    // Buttons binden, nur wenn sie existieren
-    const startBtn = document.getElementById("startBtn");
-    if(startBtn) {
-        startBtn.onclick = (e) => { 
-            e.stopPropagation(); Sound.init(); 
-            document.getElementById("startScreen").style.display="none"; 
-            fetch("question.json").then(r=>r.json()).then(d=>{ questions=d.sort(()=>Math.random()-0.5); nextQuestion(); });
-        };
+// ... (alles vorher bleibt exakt wie es ist)
+
+// EVENTS - Sicherer binden
+window.addEventListener("pointerdown", (e) => {
+    // Nur weitergehen, wenn wir nicht gerade auf eine Antwort klicken
+    if(gameState === "feedback" && !e.target.closest(".answerBox")) {
+        nextQuestion();
     }
-
-    const muteBtn = document.getElementById("muteToggle");
-    if(muteBtn) {
-        muteBtn.onclick = (e) => { 
-            e.stopPropagation(); Sound.init(); Sound.isMuted = !Sound.isMuted; 
-            e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
-        };
-    }
-
-    const infoBtn = document.getElementById("infoToggle");
-    if(infoBtn) infoBtn.onclick = (e) => { e.stopPropagation(); document.getElementById("infoOverlay").style.display = "flex"; };
-    
-    const closeBtn = document.getElementById("closeInfoBtn");
-    if(closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); document.getElementById("infoOverlay").style.display = "none"; };
-
-    window.addEventListener("resize", () => { 
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
-    });
-    
-    // Initialer Start
-    window.onresize(); 
-    start(); 
-    loop();
 });
 
+window.addEventListener("keydown", (e) => {
+    if(gameState === "feedback") { nextQuestion(); return; }
+    if(gameState === "playing") {
+        if(e.key === "ArrowLeft") hop(0);
+        if(e.key === "ArrowUp" || e.key === " ") hop(1);
+        if(e.key === "ArrowRight") hop(2);
+    }
+});
+
+document.getElementById("muteToggle").onclick = (e) => { 
+    Sound.init(); Sound.isMuted = !Sound.isMuted; 
+    e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
+};
+
+// Resize korrekt mit addEventListener
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Initialisierung nach Laden
+window.addEventListener("load", () => {
+    window.dispatchEvent(new Event('resize'));
+    start();
+});
+
+loop();

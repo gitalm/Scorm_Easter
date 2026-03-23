@@ -1,32 +1,22 @@
 [
-  { 
-    "question": "$20\\text{ m/s}$ in $\\text{km/h}$?", 
-    "answers": ["$72\\text{ km/h}$", "$60\\text{ km/h}$", "$50\\text{ km/h}$"], 
-    "correctAnswer": 0, 
-    "tipp": "Tipp: Multipliziere immer mit 3,6! $20 \\cdot 3,6 = 72$." 
-  },
-  { 
-    "question": "$90\\text{ km/h}$ in $\\text{m/s}$?", 
-    "answers": ["$20\\text{ m/s}$", "$25\\text{ m/s}$", "$30\\text{ m/s}$"], 
-    "correctAnswer": 1, 
-    "tipp": "Tipp: Teile durch 3,6! $90 / 3,6 = 25$." 
-  },
-  { 
-    "question": "Ein Radfahrer fährt $10\\text{ km}$ in $30\\text{ min}$. Wie hoch ist $v$ in $\\text{km/h}$?", 
-    "answers": ["$15\\text{ km/h}$", "$20\\text{ km/h}$", "$30\\text{ km/h}$"], 
-    "correctAnswer": 1, 
-    "tipp": "Achtung: $30\\text{ min}$ sind $0,5\\text{ Stunden}$. $10\\text{ km} / 0,5\\text{ h} = 20\\text{ km/h}$." 
-  },
-  { 
-    "question": "$108\\text{ km/h}$ in $\\text{m/s}$?", 
-    "answers": ["$25\\text{ m/s}$", "$30\\text{ m/s}$", "$36\\text{ m/s}$"], 
-    "correctAnswer": 1, 
-    "tipp": "Fehler: Du hast vielleicht mit 3,6 multipliziert statt geteilt. $108 / 3,6 = 30$." 
-  },
-  { 
-    "question": "Was ist schneller: $20\\text{ m/s}$ oder $80\\text{ km/h}$?", 
-    "answers": ["$20\\text{ m/s}$", "$80\\text{ km/h}$", "beide gleich"], 
-    "correctAnswer": 1, 
-    "tipp": "Rechne um: $20\\text{ m/s} = 72\\text{ km/h}$. $80\\text{ km/h}$ ist also mehr!" 
-  }
+  { "question": "Ein Osterhase hoppelt $20\\text{ m/s}$. Wie schnell ist das in $\\text{km/h}$? 🐇", "answers": ["$72\\text{ km/h}$", "$60\\text{ km/h}$", "$50\\text{ km/h}$"], "correctAnswer": 0, "tipp": "Tipp: Multipliziere mit 3,6! $20 \\cdot 3,6 = 72$." },
+  { "question": "Der Oster-Expresszug schafft $90\\text{ km/h}$. Wie viel $\\text{m/s}$ sind das? 🚂", "answers": ["$20\\text{ m/s}$", "$25\\text{ m/s}$", "$30\\text{ m/s}$"], "correctAnswer": 1, "tipp": "Tipp: Teile durch 3,6! $90 / 3,6 = 25$." },
+  { "question": "Ein Fahrradfahrer 🚴‍♀️ fährt $10\\text{ km}$ in $30\\text{ min}$. Wie hoch ist $v$ in $\\text{km/h}$?", "answers": ["$15\\text{ km/h}$", "$20\\text{ km/h}$", "$30\\text{ km/h}$"], "correctAnswer": 1, "tipp": "Achtung: $30\\text{ min}$ sind $0,5\\text{ Stunden}$. $10\\text{ km} / 0,5\\text{ h} = 20\\text{ km/h}$." },
+  { "question": "Ein Ruderboot 🚣‍♀️ schafft $108\\text{ km/h}$ (sehr schnell!). Wie viel $\\text{m/s}$ sind das?", "answers": ["$25\\text{ m/s}$", "$30\\text{ m/s}$", "$36\\text{ m/s}$"], "correctAnswer": 1, "tipp": "Tipp: $108 / 3,6 = 30$." },
+  { "question": "Was ist schneller: Ein Hase mit $20\\text{ m/s}$ 🐇 oder ein Auto mit $80\\text{ km/h}$ 🚗?", "answers": ["Der Hase", "Das Auto", "Beide gleich"], "correctAnswer": 1, "tipp": "$20\\text{ m/s} = 72\\text{ km/h}$. Das Auto ist also schneller!" },
+  { "question": "Wie lange braucht ein Lichtstrahl ($v=300.000\\text{ km/s}$) für $600.000\\text{ km}$? 💡", "answers": ["$3\\text{ s}$", "$2\\text{ s}$", "$1\\text{ s}$"], "correctAnswer": 1, "tipp": "Weg durch Geschwindigkeit: $600.000 / 300.000 = 2$." },
+  { "question": "Ein Auto fährt $120\\text{ km}$ in $2\\text{ h}$. Wie schnell ist es? 🚗", "answers": ["$60\\text{ km/h}$", "$240\\text{ km/h}$", "$40\\text{ km/h}$"], "correctAnswer": 0, "tipp": "Einfach: Weg durch Zeit teilen ($120 / 2$)." },
+  { "question": "$v = 5\\text{ m/s}$. Welchen Weg legt man in $10\\text{ s}$ zurück? 🏃", "answers": ["$50\\text{ m}$", "$15\\text{ m}$", "$2\\text{ m}$"], "correctAnswer": 0, "tipp": "Formel: $s = v \\cdot t$. Also $5 \\cdot 10$." },
+  { "question": "Ein Läufer 🏃 braucht $10\\text{ s}$ für $100\\text{ m}$. $v$ in $\\text{m/s}$?", "answers": ["$10\\text{ m/s}$", "$100\\text{ m/s}$", "$1\\text{ m/s}$"], "correctAnswer": 0, "tipp": "$100\\text{ m} / 10\\text{ s} = 10\\text{ m/s}$." },
+  { "question": "Wie lautet die Formel für die Zeit $t$, wenn $v$ und $s$ gegeben sind?", "answers": ["$t = s \\cdot v$", "$t = v : s$", "$t = s : v$"], "correctAnswer": 2, "tipp": "Zeit = Weg / Geschwindigkeit." },
+  { "question": "Ein Schiff 🚢 fährt $20\\text{ km/h}$. Wie weit kommt es in $30\\text{ min}$?", "answers": ["$20\\text{ km}$", "$10\\text{ km}$", "$5\\text{ km}$"], "correctAnswer": 1, "tipp": "$30\\text{ min}$ ist eine halbe Stunde ($0,5\\text{ h}$). $20 \\cdot 0,5 = 10$." },
+  { "question": "$15\\text{ m/s}$ in $\\text{km/h}$? 🏎️", "answers": ["$45\\text{ km/h}$", "$54\\text{ km/h}$", "$50\\text{ km/h}$"], "correctAnswer": 1, "tipp": "$15 \\cdot 3,6 = 54$." },
+  { "question": "Ein Traktor 🚜 fährt $1\\text{ min}$ lang $10\\text{ m/s}$. Welcher Weg?", "answers": ["$60\\text{ m}$", "$600\\text{ m}$", "$100\\text{ m}$"], "correctAnswer": 1, "tipp": "Vorsicht: $1\\text{ min} = 60\\text{ Sekunden}$. $60 \\cdot 10 = 600$." },
+  { "question": "Welche Einheit ist KEINE Geschwindigkeit? 🏁", "answers": ["$\\text{km/h}$", "$\\text{m/s}$", "$\\text{m}^2$"], "correctAnswer": 2, "tipp": "$\\text{m}^2$ misst eine Fläche, keine Bewegung!" },
+  { "question": "Ein Flugzeug ✈️ fliegt $900\\text{ km/h}$. $v$ in $\\text{m/s}$?", "answers": ["$200\\text{ m/s}$", "$250\\text{ m/s}$", "$300\\text{ m/s}$"], "correctAnswer": 1, "tipp": "$900 / 3,6 = 250$." },
+  { "question": "$s = 1\\text{ km}$, $t = 100\\text{ s}$. $v$ in $\\text{m/s}$? 🏃‍♂️", "answers": ["$10\\text{ m/s}$", "$100\\text{ m/s}$", "$1\\text{ m/s}$"], "correctAnswer": 0, "tipp": "Wandle erst um: $1\\text{ km} = 1000\\text{ m}$. Dann $1000 / 100 = 10$." },
+  { "question": "Ein Auto 🚙 beschleunigt nicht. Was gilt?", "answers": ["$v$ ändert sich", "$v$ ist konstant", "$v = 0$"], "correctAnswer": 1, "tipp": "Wenn die Geschwindigkeit gleich bleibt, ist sie konstant." },
+  { "question": "$s = 400\\text{ m}$, $t = 20\\text{ s}$. $v$ in $\\text{m/s}$? 🚴", "answers": ["$20\\text{ m/s}$", "$40\\text{ m/s}$", "$2\\text{ m/s}$"], "correctAnswer": 0, "tipp": " $400 / 20 = 20$." },
+  { "question": "Wie weit kommt ein Osterhase 🐇 ($v=5\\text{ m/s}$) in $1\\text{ Minute}$?", "answers": ["$300\\text{ m}$", "$50\\text{ m}$", "$60\\text{ m}$"], "correctAnswer": 0, "tipp": "$1\\text{ Min} = 60\\text{ s}$. $5\\text{ m/s} \\cdot 60\\text{ s} = 300\\text{ m}$." },
+  { "question": "Was ist schneller: $10\\text{ m/s}$ oder $30\\text{ km/h}$? 🐎", "answers": ["$10\\text{ m/s}$", "$30\\text{ km/h}$", "beide gleich"], "correctAnswer": 0, "tipp": "$10\\text{ m/s} = 36\\text{ km/h}$. $36$ ist größer als $30$." }
 ]
