@@ -1,33 +1,25 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Osterhase-Spiel</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <canvas id="gameCanvas"></canvas>
-    <div id="topHUD">
-        <div id="questionDisplay">Frage erscheint hier</div>
-        <div id="astronautFeedback">Feedback erscheint hier</div>
-    </div>
-    <div id="answerContainer">
-        <div class="answerBox">Antwort 1</div>
-        <div class="answerBox">Antwort 2</div>
-        <div class="answerBox">Antwort 3</div>
-    </div>
-    <div id="uiTopRight">
-        <div class="ui-icon">⚙️</div>
-        <div class="ui-icon">🔊</div>
-    </div>
-    <div id="bunny">🐰</div>
-    <div id="startScreen" class="overlay">
-        <div class="menu-box">
-            <h1>Willkommen!</h1>
-            <button id="startButton" class="main-btn">Start</button>
-        </div>
-    </div>
-    <script src="game.js"></script>
-</body>
-</html>
+html, body {
+    margin: 0; padding: 0; width: 100vw; height: 100vh;
+    overflow: hidden; position: fixed;
+    background-color: #c8e6c9; /* Frühlings-Grün */
+    font-family: sans-serif; touch-action: none;
+}
+#gameCanvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; pointer-events: none; }
+#topHUD { position: absolute; top: 10px; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; z-index: 1100; pointer-events: none; }
+#questionDisplay { width: 90%; background: #ffffff; padding: 15px; border-radius: 20px; border: 3px solid #388e3c; text-align: center; font-size: 24px; color: #1b5e20; font-weight: bold; pointer-events: auto; }
+#astronautFeedback { width: 85%; background: #ffffff; color: #1b5e20; padding: 15px; border-radius: 20px; border: 4px solid #fbc02d; display: none; align-items: center; gap: 15px; pointer-events: auto; cursor: pointer; }
+#answerContainer { position: absolute; top: 40%; left: 0; width: 100%; display: flex; justify-content: space-evenly; z-index: 500; pointer-events: none; }
+.answerBox { width: 30%; max-width: 140px; min-height: 90px; background: #fff9c4; border: 3px solid #fbc02d; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; font-size: 22px; pointer-events: auto; cursor: pointer; }
+.answerBox::before { content: "🐣"; font-size: 30px; }
+.ui-icon { width: 40px; height: 40px; background: #81c784; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; font-weight: bold; }
+#uiTopRight { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; z-index: 1200; }
+#startScreen, .overlay { position: absolute; inset: 0; background: #e8f5e9; display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.menu-box { text-align: center; border: 3px solid #388e3c; padding: 30px; border-radius: 20px; background: white; }
+.main-btn { background: #4caf50; color: white; border: none; padding: 15px 40px; font-size: 22px; border-radius: 15px; cursor: pointer; }
+#bunny {
+    position: absolute;
+    font-size: 50px;
+    z-index: 5000;
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out;
+    pointer-events: none;
+}
