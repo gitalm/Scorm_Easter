@@ -2,32 +2,42 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Osterhase-Spiel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ByLKI Oster-Hase</title>
+    <!-- KaTeX für Mathe -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    <div id="topHUD">
-        <div id="questionDisplay">Frage erscheint hier</div>
-        <div id="astronautFeedback">Feedback erscheint hier</div>
-    </div>
-    <div id="answerContainer">
-        <div class="answerBox">Antwort 1</div>
-        <div class="answerBox">Antwort 2</div>
-        <div class="answerBox">Antwort 3</div>
-    </div>
     <div id="uiTopRight">
-        <div class="ui-icon">⚙️</div>
-        <div class="ui-icon">🔊</div>
+        <div id="muteToggle" class="ui-icon">🔇</div>
+        <div id="infoToggle" class="ui-icon">?</div>
     </div>
-    <div id="bunny">🐰</div>
-    <div id="startScreen" class="overlay">
-        <div class="menu-box">
-            <h1>Willkommen!</h1>
-            <button id="startButton" class="main-btn">Start</button>
+
+    <div id="scoreDisplay">Punkte: 0</div>
+
+    <div id="topHUD">
+        <div id="astronautFeedback">
+            <div id="astronautEmoji">🐣</div>
+            <div id="astronautSpeech"></div>
+        </div>
+        <div id="questionDisplay">Mission startet...</div>
+    </div>
+
+    <!-- DER HASE (als HTML Element) -->
+    <div id="bunny">🐇</div>
+
+    <div id="answerContainer"></div>
+
+    <div id="infoOverlay" class="overlay">
+        <div class="info-box">
+            <h2>Oster-Anleitung</h2>
+            <p>Tippe auf ein Nest 🐣 oder nutze die Pfeiltasten.</p>
+            <button id="closeInfoBtn">OK</button>
         </div>
     </div>
+
     <script src="game.js"></script>
 </body>
 </html>
