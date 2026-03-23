@@ -3,46 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ByLKI Oster-Hase</title>
+    <title>Oster-Hoppler</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="katex.min.css">
     <script defer src="katex.min.js"></script>
 </head>
 <body>
-    <div id="startScreen">
-        <div class="menu-box">
-            <h1>🐇 Oster-Hoppler</h1>
-            <p>Tippe auf das richtige Nest, <br>damit der Hase hinhoppelt!</p>
-            <button id="startBtn" class="main-btn">START</button>
-        </div>
-    </div>
-
-    <div id="uiTopRight">
-        <div id="muteToggle" class="ui-icon">🔇</div>
-        <div id="infoToggle" class="ui-icon">?</div>
-    </div>
-
     <div id="scoreDisplay">Punkte: 0</div>
-
     <div id="topHUD">
         <div id="astronautFeedback">
-            <div id="astronautEmoji">🐣</div>
             <div id="astronautSpeech"></div>
         </div>
-        <div id="questionDisplay">Lade...</div>
+        <div id="questionDisplay">Lade Quiz...</div>
     </div>
-
     <canvas id="gameCanvas"></canvas>
     <div id="answerContainer"></div>
-
-    <div id="infoOverlay" class="overlay">
-        <div class="info-box">
-            <h2>Oster-Anleitung</h2>
-            <p><b>Hoppeln:</b> Tippe auf das Nest 🐣.</p>
-            <p><b>Weiter:</b> Nach der Auflösung irgendwohin tippen.</p>
-            <button id="closeInfoBtn">OK</button>
-        </div>
-    </div>
     <script src="game.js"></script>
 </body>
 </html>
