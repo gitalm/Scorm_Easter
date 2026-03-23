@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="OsterHaseQuiz" version="1.0" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2">
+  <organizations default="org_1">
+    <organization identifier="org_1">
+      <item identifier="item_1" identifierref="res_1">
+        <title>Oster-Hoppler</title>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="res_1" type="webcontent" href="index.html" adlcp:scormType="sco">
+      <file href="index.html"/>
+      <file href="game.js"/>
+      <file href="styles.css"/>
+      <file href="question.json"/>
+    </resource>
+  </resources>
+</manifest>
