@@ -1,7 +1,25 @@
+// --- SOUND ENGINE ---
+const Sound = {
+    ctx: null, isMuted: true,
+    init() { if(!this.ctx) { this.ctx = new (AudioContext || webkitAudioContext)(); if (this.ctx.state === 'suspended') this.ctx.resume(); } },
+    play(freq, type, duration, vol=0.1) {
+        if (!this.ctx || this.isMuted) return;
+        let o = this.ctx.createOscillator(), g = this.ctx.createGain();
+        o.type = type; o.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        o.connect(g); g.connect(this.ctx.destination);
+        g.gain.setValueAtTime(vol, this.ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+        o.start(); o.stop(this.ctx.currentTime + duration);
+    },
+    success() { this.play(523, "sine", 0.3); },
+    error() { this.play(150, "sawtooth", 0.4); }
+};
+
+// --- SCORM ---
 const scorm = {
     active: false,
     init() { this.api = (function find(w) { return (w.API) ? w.API : (w.parent && w.parent != w) ? find(w.parent) : null; })(window); if(this.api) { this.api.LMSInitialize(""); this.active = true; } },
-    save(score, maxScore) { if (!this.active) return; this.api.LMSSetValue("cmi.core.score.raw", Math.round((score/maxScore)*100)); this.api.LMSSetValue("cmi.core.lesson_status", "completed"); this.api.LMSCommit(""); }
+    save(s, t) { if (!this.active) return; this.api.LMSSetValue("cmi.core.score.raw", Math.round((s/t)*100)); this.api.LMSSetValue("cmi.core.lesson_status", "completed"); this.api.LMSCommit(""); }
 };
 
 const canvas = document.getElementById("gameCanvas"), ctx = canvas.getContext("2d");
@@ -23,7 +41,8 @@ async function start() {
 function nextQuestion() {
     if(asked >= questions.length) { 
         scorm.save(score, questions.length * 10);
-        document.getElementById("topHUD").innerHTML = `<h2>Mission Ende!</h2><p>Punkte: ${score}</p>`;
+        document.getElementById("topHUD").innerHTML = `<h2>Oster-Mission geschafft!</h2><p>Punkte: ${score}</p>`;
+        gameState = "end";
         return; 
     }
     document.getElementById("astronautFeedback").style.display = "none";
@@ -45,8 +64,19 @@ function hop(idx) {
     gameState = "hopping";
     let b = document.querySelectorAll(".answerBox");
     let r = b[idx].getBoundingClientRect();
-    bunny.targetX = r.left + r.width/2 - 20; bunny.targetY = r.top + r.height/2 - 20;
+    bunny.targetX = r.left + r.width/2 - 25; bunny.targetY = r.top + r.height/2 - 25;
     bunny.hopping = true; bunny.choice = idx;
+}
+
+function showFeedback(isCorrect) {
+    gameState = "feedback";
+    if(isCorrect) { score += 10; Sound.success(); } else Sound.error();
+    document.getElementById("scoreDisplay").innerText = "Punkte: " + score;
+    
+    // Neues Feedback mit Tipp
+    let txt = (isCorrect ? "✅ Richtig! " : "❌ Leider falsch. ") + (curQ.tipp || "Weiter geht's!");
+    render(txt + " <br><small><i>(Tippen oder Taste zum Fortfahren)</i></small>", document.getElementById("astronautSpeech"));
+    document.getElementById("astronautFeedback").style.display = "flex";
 }
 
 function loop() {
@@ -56,19 +86,17 @@ function loop() {
         bunny.y += (bunny.targetY - bunny.y) * 0.1;
         if(Math.hypot(bunny.targetX - bunny.x, bunny.targetY - bunny.y) < 5) {
             gameState = "feedback"; bunny.hopping = false;
-            let win = (bunny.choice === curQ.correctAnswer);
-            if(win) score += 10;
-            document.getElementById("scoreDisplay").innerText = "Punkte: " + score;
-            render(win ? "Richtig! 🥕" : "Leider nein... 💨", document.getElementById("astronautSpeech"));
-            document.getElementById("astronautFeedback").style.display = "flex";
+            showFeedback(bunny.choice === curQ.correctAnswer);
         }
-    } else { bunny.x = window.innerWidth/2 - 25; bunny.y = window.innerHeight * 0.8; }
+    } else { bunny.x = window.innerWidth/2 - 25; bunny.y = window.innerHeight * 0.75; }
     
-    ctx.font = "50px serif"; ctx.fillText("🐇", bunny.x, bunny.y);
+    if(gameState !== "end") {
+        ctx.font = "50px serif"; ctx.fillText("🐇", bunny.x, bunny.y);
+    }
     requestAnimationFrame(loop);
 }
 
-// Globaler Input
+// Eingaben
 window.addEventListener("pointerdown", () => { if(gameState === "feedback") nextQuestion(); });
 window.addEventListener("keydown", (e) => {
     if(gameState === "feedback") { nextQuestion(); return; }
@@ -78,5 +106,9 @@ window.addEventListener("keydown", (e) => {
         if(e.key === "ArrowRight") hop(2);
     }
 });
+document.getElementById("muteToggle").onclick = (e) => { Sound.init(); Sound.isMuted = !Sound.isMuted; e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; };
+document.getElementById("infoToggle").onclick = () => document.getElementById("infoOverlay").style.display = "flex";
+document.getElementById("closeInfoBtn").onclick = () => document.getElementById("infoOverlay").style.display = "none";
+
 window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
 window.onresize(); start();

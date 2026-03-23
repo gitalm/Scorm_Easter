@@ -1,22 +1,32 @@
 [
-  { "question": "Ein Auto fährt $20\\text{ m/s}$. Wie schnell ist das in $\\text{km/h}$?", "answers": ["$72\\text{ km/h}$", "$60\\text{ km/h}$", "$50\\text{ km/h}$"], "correctAnswer": 0, "explanation": "$20 \\cdot 3,6 = 72$." },
-  { "question": "$90\\text{ km/h}$ in $\\text{m/s}$?", "answers": ["$20\\text{ m/s}$", "$25\\text{ m/s}$", "$30\\text{ m/s}$"], "correctAnswer": 1, "explanation": "$90 : 3,6 = 25$." },
-  { "question": "$v = \\frac{s}{t}$. Wie lautet die Formel für den Weg $s$?", "answers": ["$s = v : t$", "$s = v \\cdot t$", "$s = t : v$"], "correctAnswer": 1, "explanation": "Beide Seiten mit $t$ multiplizieren." },
-  { "question": "Ein Radfahrer fährt $10\\text{ km}$ in $30\\text{ min}$. Wie hoch ist $v$ in $\\text{km/h}$?", "answers": ["$15\\text{ km/h}$", "$20\\text{ km/h}$", "$30\\text{ km/h}$"], "correctAnswer": 1, "explanation": "$30\\text{ min} = 0,5\\text{ h}$. $10 : 0,5 = 20$." },
-  { "question": "Ein Zug fährt $120\\text{ km}$ in $2\\text{ h}$. Wie schnell ist er?", "answers": ["$60\\text{ km/h}$", "$240\\text{ km/h}$", "$40\\text{ km/h}$"], "correctAnswer": 0, "explanation": "$120 : 2 = 60$." },
-  { "question": "Welche Einheit ist KEINE Geschwindigkeit?", "answers": ["$\\text{km/h}$", "$\\text{m/s}$", "$\\text{m}^2$"], "correctAnswer": 2, "explanation": "$\\text{m}^2$ ist eine Flächeneinheit." },
-  { "question": "$v = 5\\text{ m/s}$. Welchen Weg legt man in $10\\text{ s}$ zurück?", "answers": ["$50\\text{ m}$", "$15\\text{ m}$", "$2\\text{ m}$"], "correctAnswer": 0, "explanation": "$5 \\cdot 10 = 50$." },
-  { "question": "$108\\text{ km/h}$ in $\\text{m/s}$?", "answers": ["$25\\text{ m/s}$", "$30\\text{ m/s}$", "$36\\text{ m/s}$"], "correctAnswer": 1, "explanation": "$108 : 3,6 = 30$." },
-  { "question": "Ein Läufer braucht $10\\text{ s}$ für $100\\text{ m}$. $v$ in $\\text{m/s}$?", "answers": ["$10\\text{ m/s}$", "$100\\text{ m/s}$", "$1\\text{ m/s}$"], "correctAnswer": 0, "explanation": "$100 : 10 = 10$." },
-  { "question": "Wie lange braucht ein Lichtstrahl ($v=300.000\\text{ km/s}$) für $600.000\\text{ km}$?", "answers": ["$3\\text{ s}$", "$2\\text{ s}$", "$1\\text{ s}$"], "correctAnswer": 1, "explanation": "$600.000 : 300.000 = 2$." },
-  { "question": "$s = 400\\text{ m}$, $t = 20\\text{ s}$. $v$?", "answers": ["$20\\text{ m/s}$", "$40\\text{ m/s}$", "$2\\text{ m/s}$"], "correctAnswer": 0, "explanation": "$400 : 20 = 20$." },
-  { "question": "Ein Flugzeug fliegt $900\\text{ km/h}$. $v$ in $\\text{m/s}$?", "answers": ["$200\\text{ m/s}$", "$250\\text{ m/s}$", "$300\\text{ m/s}$"], "correctAnswer": 1, "explanation": "$900 : 3,6 = 250$." },
-  { "question": "Wie lautet die Formel für die Zeit $t$?", "answers": ["$t = s \\cdot v$", "$t = v : s$", "$t = s : v$"], "correctAnswer": 2, "explanation": "Weg durch Geschwindigkeit." },
-  { "question": "Ein Auto fährt $1\\text{ min}$ lang $10\\text{ m/s}$. Weg?", "answers": ["$60\\text{ m}$", "$600\\text{ m}$", "$100\\text{ m}$"], "correctAnswer": 1, "explanation": "$1\\text{ min} = 60\\text{ s}$. $60 \\cdot 10 = 600$." },
-  { "question": "Ein Fußgänger schafft $5\\text{ km/h}$. Wie weit in $4\\text{ h}$?", "answers": ["$20\\text{ km}$", "$9\\text{ km}$", "$1,25\\text{ km}$"], "correctAnswer": 0, "explanation": "$5 \\cdot 4 = 20$." },
-  { "question": "$15\\text{ m/s}$ in $\\text{km/h}$?", "answers": ["$45\\text{ km/h}$", "$54\\text{ km/h}$", "$50\\text{ km/h}$"], "correctAnswer": 1, "explanation": "$15 \\cdot 3,6 = 54$." },
-  { "question": "Ein Auto beschleunigt nicht. Was gilt?", "answers": ["$v$ ändert sich", "$v$ ist konstant", "$v = 0$"], "correctAnswer": 1, "explanation": "Keine Beschleunigung heißt konstante Geschwindigkeit." },
-  { "question": "Ein Schiff fährt $20\\text{ km/h}$. Wie weit in $30\\text{ min}$?", "answers": ["$20\\text{ km}$", "$10\\text{ km}$", "$5\\text{ km}$"], "correctAnswer": 1, "explanation": "$30\\text{ min} = 0,5\\text{ h}$. $20 \\cdot 0,5 = 10$." },
-  { "question": "Was ist schneller: $20\\text{ m/s}$ oder $80\\text{ km/h}$?", "answers": ["$20\\text{ m/s}$", "$80\\text{ km/h}$", "beide gleich"], "correctAnswer": 1, "explanation": "$20\\text{ m/s} = 72\\text{ km/h}$. Also sind $80\\text{ km/h}$ schneller." },
-  { "question": "$s = 1\\text{ km}$, $t = 100\\text{ s}$. $v$ in $\\text{m/s}$?", "answers": ["$10\\text{ m/s}$", "$100\\text{ m/s}$", "$1\\text{ m/s}$"], "correctAnswer": 0, "explanation": "$1\\text{ km} = 1000\\text{ m}$. $1000 : 100 = 10$." }
+  { 
+    "question": "$20\\text{ m/s}$ in $\\text{km/h}$?", 
+    "answers": ["$72\\text{ km/h}$", "$60\\text{ km/h}$", "$50\\text{ km/h}$"], 
+    "correctAnswer": 0, 
+    "tipp": "Tipp: Multipliziere immer mit 3,6! $20 \\cdot 3,6 = 72$." 
+  },
+  { 
+    "question": "$90\\text{ km/h}$ in $\\text{m/s}$?", 
+    "answers": ["$20\\text{ m/s}$", "$25\\text{ m/s}$", "$30\\text{ m/s}$"], 
+    "correctAnswer": 1, 
+    "tipp": "Tipp: Teile durch 3,6! $90 / 3,6 = 25$." 
+  },
+  { 
+    "question": "Ein Radfahrer fährt $10\\text{ km}$ in $30\\text{ min}$. Wie hoch ist $v$ in $\\text{km/h}$?", 
+    "answers": ["$15\\text{ km/h}$", "$20\\text{ km/h}$", "$30\\text{ km/h}$"], 
+    "correctAnswer": 1, 
+    "tipp": "Achtung: $30\\text{ min}$ sind $0,5\\text{ Stunden}$. $10\\text{ km} / 0,5\\text{ h} = 20\\text{ km/h}$." 
+  },
+  { 
+    "question": "$108\\text{ km/h}$ in $\\text{m/s}$?", 
+    "answers": ["$25\\text{ m/s}$", "$30\\text{ m/s}$", "$36\\text{ m/s}$"], 
+    "correctAnswer": 1, 
+    "tipp": "Fehler: Du hast vielleicht mit 3,6 multipliziert statt geteilt. $108 / 3,6 = 30$." 
+  },
+  { 
+    "question": "Was ist schneller: $20\\text{ m/s}$ oder $80\\text{ km/h}$?", 
+    "answers": ["$20\\text{ m/s}$", "$80\\text{ km/h}$", "beide gleich"], 
+    "correctAnswer": 1, 
+    "tipp": "Rechne um: $20\\text{ m/s} = 72\\text{ km/h}$. $80\\text{ km/h}$ ist also mehr!" 
+  }
 ]
