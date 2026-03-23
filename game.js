@@ -96,19 +96,39 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-// Eingaben
-window.addEventListener("pointerdown", () => { if(gameState === "feedback") nextQuestion(); });
-window.addEventListener("keydown", (e) => {
-    if(gameState === "feedback") { nextQuestion(); return; }
-    if(gameState === "playing") {
-        if(e.key === "ArrowLeft") hop(0);
-        if(e.key === "ArrowUp" || e.key === " ") hop(1);
-        if(e.key === "ArrowRight") hop(2);
+// ---EVENTS BINDING---
+document.addEventListener("DOMContentLoaded", () => {
+    // Buttons binden, nur wenn sie existieren
+    const startBtn = document.getElementById("startBtn");
+    if(startBtn) {
+        startBtn.onclick = (e) => { 
+            e.stopPropagation(); Sound.init(); 
+            document.getElementById("startScreen").style.display="none"; 
+            fetch("question.json").then(r=>r.json()).then(d=>{ questions=d.sort(()=>Math.random()-0.5); nextQuestion(); });
+        };
     }
-});
-document.getElementById("muteToggle").onclick = (e) => { Sound.init(); Sound.isMuted = !Sound.isMuted; e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; };
-document.getElementById("infoToggle").onclick = () => document.getElementById("infoOverlay").style.display = "flex";
-document.getElementById("closeInfoBtn").onclick = () => document.getElementById("infoOverlay").style.display = "none";
 
-window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-window.onresize(); start();
+    const muteBtn = document.getElementById("muteToggle");
+    if(muteBtn) {
+        muteBtn.onclick = (e) => { 
+            e.stopPropagation(); Sound.init(); Sound.isMuted = !Sound.isMuted; 
+            e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
+        };
+    }
+
+    const infoBtn = document.getElementById("infoToggle");
+    if(infoBtn) infoBtn.onclick = (e) => { e.stopPropagation(); document.getElementById("infoOverlay").style.display = "flex"; };
+    
+    const closeBtn = document.getElementById("closeInfoBtn");
+    if(closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); document.getElementById("infoOverlay").style.display = "none"; };
+
+    window.addEventListener("resize", () => { 
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
+    });
+    
+    // Initialer Start
+    window.onresize(); 
+    start(); 
+    loop();
+});
+
