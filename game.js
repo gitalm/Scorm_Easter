@@ -21,8 +21,7 @@ const scorm = {
     save(s, t) { if (!this.active) return; this.api.LMSSetValue("cmi.core.score.raw", Math.round((s/t)*100)); this.api.LMSSetValue("cmi.core.lesson_status", "completed"); this.api.LMSCommit(""); }
 };
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("gameCanvas"), ctx = canvas.getContext("2d");
 let questions = [], curQ = null, asked = 0, score = 0, gameState = "playing", bunny = { x: 0, y: 0, targetX: 0, targetY: 0, hopping: false, choice: -1 };
 
 function render(txt, el) { try { el.innerHTML = txt.replace(/\$(.*?)\$/g, (m, f) => katex.renderToString(f)); } catch(e) { el.innerText = txt; } }
@@ -50,7 +49,8 @@ function nextQuestion() {
     curQ.answers.forEach((ans, i) => {
         let div = document.createElement("div"); div.className = "answerBox";
         render(ans, div);
-        div.onclick = () => { if(gameState === "playing") hop(i); };
+        // WICHTIG: Hier wird das Klick-Event sicher gebunden
+        div.onclick = (e) => { e.stopPropagation(); if(gameState === "playing") hop(i); };
         container.appendChild(div);
     });
     gameState = "playing";
@@ -60,14 +60,19 @@ function hop(idx) {
     gameState = "hopping";
     let b = document.querySelectorAll(".answerBox");
     let r = b[idx].getBoundingClientRect();
-    bunny.targetX = r.left + r.width/2 - 25; bunny.targetY = r.top + r.height/2 - 25;
-    bunny.hopping = true; bunny.choice = idx;
+    bunny.targetX = r.left + r.width/2 - 25; 
+    bunny.targetY = r.top + r.height/2 - 25;
+    bunny.hopping = true; 
+    bunny.choice = idx;
 }
 
 function loop() {
     ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+    
+    // Hase positionieren
     if(bunny.hopping) {
-        bunny.x += (bunny.targetX - bunny.x) * 0.1; bunny.y += (bunny.targetY - bunny.y) * 0.1;
+        bunny.x += (bunny.targetX - bunny.x) * 0.1; 
+        bunny.y += (bunny.targetY - bunny.y) * 0.1;
         if(Math.hypot(bunny.targetX - bunny.x, bunny.targetY - bunny.y) < 5) {
             gameState = "feedback"; bunny.hopping = false;
             let win = (bunny.choice === curQ.correctAnswer);
@@ -76,24 +81,44 @@ function loop() {
             render((win ? "✅ Richtig! " : "❌ Falsch. ") + (curQ.tipp || "Weiter!"), document.getElementById("astronautSpeech"));
             document.getElementById("astronautFeedback").style.display = "flex";
         }
-    } else { bunny.x = window.innerWidth/2 - 25; bunny.y = window.innerHeight * 0.75; }
-    if(gameState !== "end") { ctx.font = "50px serif"; ctx.fillText("🐇", bunny.x, bunny.y); }
+    } else {
+        // Hase steht in Startposition (unten Mitte), wenn nicht gehüpft wird
+        bunny.x = window.innerWidth/2 - 25; 
+        bunny.y = window.innerHeight * 0.75;
+    }
+    
+    if(gameState !== "end") {
+        ctx.font = "50px serif"; 
+        ctx.fillText("🐇", bunny.x, bunny.y);
+    }
     requestAnimationFrame(loop);
 }
 
 // EVENTS
 window.addEventListener("load", () => {
-    window.addEventListener("pointerdown", (e) => { if(gameState === "feedback" && !e.target.closest(".answerBox")) nextQuestion(); });
+    // Klick auf Feedback-Box oder Canvas springt zur nächsten Frage
+    window.addEventListener("pointerdown", (e) => { 
+        if(gameState === "feedback") nextQuestion(); 
+    });
+
     window.addEventListener("keydown", (e) => {
         if(gameState === "feedback") nextQuestion();
         else if(gameState === "playing") {
             if(e.key === "ArrowLeft") hop(0);
-            if(e.key === " ") hop(1);
-            if(e.key === "ArrowRight") hop(2);
+            else if(e.key === "ArrowUp" || e.key === " ") hop(1);
+            else if(e.key === "ArrowRight") hop(2);
         }
     });
-    document.getElementById("muteToggle").onclick = (e) => { Sound.init(); Sound.isMuted = !Sound.isMuted; e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; };
+
+    document.getElementById("muteToggle").onclick = (e) => { 
+        Sound.init(); Sound.isMuted = !Sound.isMuted; 
+        e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
+    };
+    
     document.getElementById("infoToggle").onclick = () => document.getElementById("infoOverlay").style.display = "flex";
     document.getElementById("closeInfoBtn").onclick = () => document.getElementById("infoOverlay").style.display = "none";
+    
+    window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    window.onresize();
     start();
 });
