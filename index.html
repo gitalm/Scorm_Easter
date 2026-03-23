@@ -9,29 +9,20 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 </head>
 <body>
-    <!-- Die fehlenden Buttons ergänzt! -->
     <div id="uiTopRight">
         <div id="muteToggle" class="ui-icon">🔇</div>
         <div id="infoToggle" class="ui-icon">?</div>
     </div>
-
     <div id="scoreDisplay">Punkte: 0</div>
     <div id="topHUD">
         <div id="astronautFeedback"><div id="astronautSpeech"></div></div>
         <div id="questionDisplay">Lade Quiz...</div>
     </div>
-    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Hier ist der Hase! -->
+    <div id="bunny">🐇</div>
+    
     <div id="answerContainer"></div>
-
-    <!-- Fehlendes Info-Overlay ergänzt -->
-    <div id="infoOverlay" class="overlay" style="display:none;">
-        <div class="info-box">
-            <h2>Oster-Anleitung</h2>
-            <p>Tippe auf ein Nest, um zu hoppeln!</p>
-            <button id="closeInfoBtn">OK</button>
-        </div>
-    </div>
-
     <script src="game.js"></script>
 </body>
 </html>

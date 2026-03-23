@@ -16,3 +16,11 @@ html, body {
 #startScreen, .overlay { position: absolute; inset: 0; background: #e8f5e9; display: flex; align-items: center; justify-content: center; z-index: 2000; }
 .menu-box { text-align: center; border: 3px solid #388e3c; padding: 30px; border-radius: 20px; background: white; }
 .main-btn { background: #4caf50; color: white; border: none; padding: 15px 40px; font-size: 22px; border-radius: 15px; cursor: pointer; }
+/* ... restlicher CSS Code bleibt ... */
+#bunny {
+    position: absolute;
+    font-size: 50px;
+    z-index: 5000;
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out;
+    pointer-events: none; /* Klicks gehen durch den Hasen hindurch */
+}
