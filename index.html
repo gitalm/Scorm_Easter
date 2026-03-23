@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Oster-Hoppler</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="katex.min.css">
-    <script defer src="katex.min.js"></script>
+    <!-- KaTeX laden für Mathe-Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 </head>
 <body>
     <div id="scoreDisplay">Punkte: 0</div>
     <div id="topHUD">
-        <div id="astronautFeedback">
-            <div id="astronautSpeech"></div>
-        </div>
+        <div id="astronautFeedback"><div id="astronautSpeech"></div></div>
         <div id="questionDisplay">Lade Quiz...</div>
     </div>
     <canvas id="gameCanvas"></canvas>
