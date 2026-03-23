@@ -96,40 +96,41 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-// ... (alles vorher bleibt exakt wie es ist)
 
 // EVENTS - Sicherer binden
-window.addEventListener("pointerdown", (e) => {
-    // Nur weitergehen, wenn wir nicht gerade auf eine Antwort klicken
-    if(gameState === "feedback" && !e.target.closest(".answerBox")) {
-        nextQuestion();
-    }
-});
+window.addEventListener("load", () => {
+    // 1. Resize einmal ausführen
+    window.dispatchEvent(new Event('resize'));
 
-window.addEventListener("keydown", (e) => {
-    if(gameState === "feedback") { nextQuestion(); return; }
-    if(gameState === "playing") {
-        if(e.key === "ArrowLeft") hop(0);
-        if(e.key === "ArrowUp" || e.key === " ") hop(1);
-        if(e.key === "ArrowRight") hop(2);
+    // 2. Event-Listener erst binden, wenn DOM fertig
+    const muteToggle = document.getElementById("muteToggle");
+    if (muteToggle) {
+        muteToggle.onclick = (e) => { 
+            Sound.init(); Sound.isMuted = !Sound.isMuted; 
+            e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
+        };
     }
-});
 
-document.getElementById("muteToggle").onclick = (e) => { 
-    Sound.init(); Sound.isMuted = !Sound.isMuted; 
-    e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
-};
+    const infoToggle = document.getElementById("infoToggle");
+    if (infoToggle) {
+        infoToggle.onclick = () => document.getElementById("infoOverlay").style.display = "flex";
+    }
+
+    const closeBtn = document.getElementById("closeInfoBtn");
+    if (closeBtn) {
+        closeBtn.onclick = () => document.getElementById("infoOverlay").style.display = "none";
+    }
+
+    // 3. Erst jetzt Spiel starten und Loop aktivieren
+    start();
+    loop();
+});
 
 // Resize korrekt mit addEventListener
 window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if(canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
 });
 
-// Initialisierung nach Laden
-window.addEventListener("load", () => {
-    window.dispatchEvent(new Event('resize'));
-    start();
-});
-
-loop();
