@@ -15,20 +15,17 @@ const Sound = {
     error() { this.play(150, "sawtooth", 0.4); }
 };
 
-// --- SCORM ---
 const scorm = {
     active: false,
     init() { this.api = (function find(w) { return (w.API) ? w.API : (w.parent && w.parent != w) ? find(w.parent) : null; })(window); if(this.api) { this.api.LMSInitialize(""); this.active = true; } },
     save(s, t) { if (!this.active) return; this.api.LMSSetValue("cmi.core.score.raw", Math.round((s/t)*100)); this.api.LMSSetValue("cmi.core.lesson_status", "completed"); this.api.LMSCommit(""); }
 };
 
-const canvas = document.getElementById("gameCanvas"), ctx = canvas.getContext("2d");
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 let questions = [], curQ = null, asked = 0, score = 0, gameState = "playing", bunny = { x: 0, y: 0, targetX: 0, targetY: 0, hopping: false, choice: -1 };
 
-function render(txt, el) {
-    try { el.innerHTML = txt.replace(/\$(.*?)\$/g, (m, f) => katex.renderToString(f)); } 
-    catch(e) { el.innerText = txt; }
-}
+function render(txt, el) { try { el.innerHTML = txt.replace(/\$(.*?)\$/g, (m, f) => katex.renderToString(f)); } catch(e) { el.innerText = txt; } }
 
 async function start() {
     scorm.init();
@@ -41,9 +38,8 @@ async function start() {
 function nextQuestion() {
     if(asked >= questions.length) { 
         scorm.save(score, questions.length * 10);
-        document.getElementById("topHUD").innerHTML = `<h2>Oster-Mission geschafft!</h2><p>Punkte: ${score}</p>`;
-        gameState = "end";
-        return; 
+        document.getElementById("topHUD").innerHTML = `<h2>Mission Erfüllt!</h2><p>Punkte: ${score}</p>`;
+        gameState = "end"; return; 
     }
     document.getElementById("astronautFeedback").style.display = "none";
     curQ = questions[asked++];
@@ -68,69 +64,36 @@ function hop(idx) {
     bunny.hopping = true; bunny.choice = idx;
 }
 
-function showFeedback(isCorrect) {
-    gameState = "feedback";
-    if(isCorrect) { score += 10; Sound.success(); } else Sound.error();
-    document.getElementById("scoreDisplay").innerText = "Punkte: " + score;
-    
-    // Neues Feedback mit Tipp
-    let txt = (isCorrect ? "✅ Richtig! " : "❌ Leider falsch. ") + (curQ.tipp || "Weiter geht's!");
-    render(txt + " <br><small><i>(Tippen oder Taste zum Fortfahren)</i></small>", document.getElementById("astronautSpeech"));
-    document.getElementById("astronautFeedback").style.display = "flex";
-}
-
 function loop() {
     ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
     if(bunny.hopping) {
-        bunny.x += (bunny.targetX - bunny.x) * 0.1;
-        bunny.y += (bunny.targetY - bunny.y) * 0.1;
+        bunny.x += (bunny.targetX - bunny.x) * 0.1; bunny.y += (bunny.targetY - bunny.y) * 0.1;
         if(Math.hypot(bunny.targetX - bunny.x, bunny.targetY - bunny.y) < 5) {
             gameState = "feedback"; bunny.hopping = false;
-            showFeedback(bunny.choice === curQ.correctAnswer);
+            let win = (bunny.choice === curQ.correctAnswer);
+            if(win) score += 10;
+            document.getElementById("scoreDisplay").innerText = "Punkte: " + score;
+            render((win ? "✅ Richtig! " : "❌ Falsch. ") + (curQ.tipp || "Weiter!"), document.getElementById("astronautSpeech"));
+            document.getElementById("astronautFeedback").style.display = "flex";
         }
     } else { bunny.x = window.innerWidth/2 - 25; bunny.y = window.innerHeight * 0.75; }
-    
-    if(gameState !== "end") {
-        ctx.font = "50px serif"; ctx.fillText("🐇", bunny.x, bunny.y);
-    }
+    if(gameState !== "end") { ctx.font = "50px serif"; ctx.fillText("🐇", bunny.x, bunny.y); }
     requestAnimationFrame(loop);
 }
 
-
-// EVENTS - Sicherer binden
+// EVENTS
 window.addEventListener("load", () => {
-    // 1. Resize einmal ausführen
-    window.dispatchEvent(new Event('resize'));
-
-    // 2. Event-Listener erst binden, wenn DOM fertig
-    const muteToggle = document.getElementById("muteToggle");
-    if (muteToggle) {
-        muteToggle.onclick = (e) => { 
-            Sound.init(); Sound.isMuted = !Sound.isMuted; 
-            e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; 
-        };
-    }
-
-    const infoToggle = document.getElementById("infoToggle");
-    if (infoToggle) {
-        infoToggle.onclick = () => document.getElementById("infoOverlay").style.display = "flex";
-    }
-
-    const closeBtn = document.getElementById("closeInfoBtn");
-    if (closeBtn) {
-        closeBtn.onclick = () => document.getElementById("infoOverlay").style.display = "none";
-    }
-
-    // 3. Erst jetzt Spiel starten und Loop aktivieren
+    window.addEventListener("pointerdown", (e) => { if(gameState === "feedback" && !e.target.closest(".answerBox")) nextQuestion(); });
+    window.addEventListener("keydown", (e) => {
+        if(gameState === "feedback") nextQuestion();
+        else if(gameState === "playing") {
+            if(e.key === "ArrowLeft") hop(0);
+            if(e.key === " ") hop(1);
+            if(e.key === "ArrowRight") hop(2);
+        }
+    });
+    document.getElementById("muteToggle").onclick = (e) => { Sound.init(); Sound.isMuted = !Sound.isMuted; e.target.innerText = Sound.isMuted ? "🔇" : "🔊"; };
+    document.getElementById("infoToggle").onclick = () => document.getElementById("infoOverlay").style.display = "flex";
+    document.getElementById("closeInfoBtn").onclick = () => document.getElementById("infoOverlay").style.display = "none";
     start();
-    loop();
 });
-
-// Resize korrekt mit addEventListener
-window.addEventListener("resize", () => {
-    if(canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-});
-
